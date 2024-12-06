@@ -32,17 +32,21 @@ class _NationaliseApiScreenState extends State<NationaliseApiScreen> {
         centerTitle: true,
         title: Text(nationaliseApiScreenState.name.toString()),
       ),
-      body: ListView.separated(
-          itemBuilder: (context, index) => ListTile(
-                leading: Text(nationaliseApiScreenState
-                    .countryList[index].countryId
-                    .toString()),
-                title: Text(nationaliseApiScreenState
-                    .countryList[index].probability
-                    .toString()),
-              ),
-          separatorBuilder: (context, index) => Divider(),
-          itemCount: nationaliseApiScreenState.countryList.length),
+      body: nationaliseApiScreenState.isLoading == true
+          ? Center(
+              child: CircularProgressIndicator(),
+            )
+          : ListView.separated(
+              itemBuilder: (context, index) => ListTile(
+                    leading: Text(nationaliseApiScreenState
+                        .countryList[index].countryId
+                        .toString()),
+                    title: Text(nationaliseApiScreenState
+                        .countryList[index].probability
+                        .toString()),
+                  ),
+              separatorBuilder: (context, index) => Divider(),
+              itemCount: nationaliseApiScreenState.countryList.length),
     );
   }
 }

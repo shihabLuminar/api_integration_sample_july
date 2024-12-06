@@ -6,6 +6,7 @@ import 'package:http/http.dart' as http;
 
 class NationaliseApiScreenController with ChangeNotifier {
   // NaionaliseApiResModel? resModel;
+  bool isLoading = false;
   num? count;
   String? name;
   List<Country> countryList = [];
@@ -14,6 +15,9 @@ class NationaliseApiScreenController with ChangeNotifier {
     final url = Uri.parse("https://api.nationalize.io/?name=nathaniel");
 
     try {
+      isLoading = true;
+      notifyListeners();
+
       final response = await http.get(url);
       if (response.statusCode == 200) {
         NaionaliseApiResModel resModel =
@@ -26,5 +30,8 @@ class NationaliseApiScreenController with ChangeNotifier {
         log("Api Failed with statuscode ${response.statusCode}");
       }
     } catch (e) {}
+
+    isLoading = false;
+    notifyListeners();
   }
 }
